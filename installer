@@ -3,10 +3,10 @@ local versionNumber = 1.8
 local args = {...}
 
 if #args == 1 and args[1] == "remove" then
-	if fs.exists("/LyqydOS") then
-		fs.delete("/LyqydOS")
-		if fs.exists("/.lyqwin") then fs.delete("/.lyqwin") end
-		if fs.exists("/.lyqrunhistory") then fs.delete("/.lyqrunhistory") end
+	if fs.exists("/WolfOS") then
+		fs.delete("/WolfOS")
+		if fs.exists("/.wlfwin") then fs.delete("/.wlfwin") end
+		if fs.exists("/.wlfrunhistory") then fs.delete("/.wlfrunhistory") end
 	end
 	return
 end
@@ -36,15 +36,15 @@ function resetScreen()
 	term.setCursorPos(1,1)
 	xlim, ylim = term.getSize()
 	if xlim >= 20 then
-		term.write("=LyqydOS Installer"..string.rep("=", xlim - 18))
+		term.write("=WolfOS Installer"..string.rep("=", xlim - 18))
 		term.setCursorPos(1,2)
 	end
 end
 
 resetScreen()
 
-if not fs.exists("/LyqydOS") or not fs.isDir("/LyqydOS") then
-	fs.makeDir("/LyqydOS")
+if not fs.exists("/WolfOS") or not fs.isDir("/WolfOS") then
+	fs.makeDir("/WolfOS")
 end
 
 if #args < 1 or (args[1] ~= "noupdate" and args[1] ~= "setup") then
@@ -76,14 +76,14 @@ end
 if #args < 1 or args[1] ~= "setup" then
 	for _, file in ipairs(fileList) do
 		print("Fetching file: "..file)
-		local remoteHandle = http.get("https://raw.github.com/lyqyd/LyqydOS/master/"..file)
+		local remoteHandle = http.get("https://raw.github.com/IAmWolfie/LyqydOS/master/"..file)
 		if remoteHandle then
-			fileHandle = io.open("/LyqydOS/"..file, "w")
+			fileHandle = io.open("/WolfOS/"..file, "w")
 			if fileHandle then
 				fileHandle:write(remoteHandle.readAll())
 				fileHandle:close()
 			else
-				error("Could not open file /LyqydOS/"..file)
+				error("Could not open file /WolfOS/"..file)
 			end
 		else
 			error("Could not retrieve remote file: "..file)
@@ -94,8 +94,8 @@ if #args < 1 or args[1] ~= "setup" then
 end
 
 --write sane default window sizes
-if not fs.exists("/.lyqwin") then
-	local handle = io.open("/.lyqwin", "w")
+if not fs.exists("/.wlfwin") then
+	local handle = io.open("/.wlfwin", "w")
 	if handle then
 		handle:write([[1,1,9,4,false,rom/programs/reboot]].."\n")
 		handle:write([[1,1,9,4,false,rom/programs/shutdown]].."\n")
@@ -106,7 +106,7 @@ end
 
 resetScreen()
 
-print("Run LyqydOS on startup? (y/N)")
+print("Run WolfOS on startup? (y/N)")
 term.write("> ")
 local input = read()
 if #input > 0 then
@@ -114,7 +114,7 @@ if #input > 0 then
 	if input == "y" then
 		local handle = io.open("/startup", "a")
 		if handle then
-			handle:write([[shell.run("/LyqydOS/procman")]].."\n")
+			handle:write([[shell.run("/WolfOS/procman")]].."\n")
 			handle:close()
 		end
 	end
