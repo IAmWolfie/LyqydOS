@@ -14,7 +14,7 @@ else
 	if path then
 		local w, h, x, y, max = 19, 9, 1, 1, "false"
 		windowDimensions = {}
-		winDims = io.open("/.lyqwin", "r")
+		winDims = io.open("/.wlfwin", "r")
 		if winDims then
 			for line in winDims:lines() do
 				if string.match(line, "%d+,%d+,%d+,%d+,%a+,(.*)") == path then
