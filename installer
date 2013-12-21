@@ -49,7 +49,7 @@ end
 
 if #args < 1 or (args[1] ~= "noupdate" and args[1] ~= "setup") then
 	print("Updating Installer")
-	local remoteHandle = http.get("http://pastebin.com/raw.php?i=WmFHmuZq")
+	local remoteHandle = http.get("http://pastebin.com/raw.php?i=NLMLfPNj")
 	if remoteHandle then
 		fileHandle = io.open(shell.getRunningProgram(), "w")
 		if fileHandle then
